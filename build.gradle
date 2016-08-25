@@ -1,0 +1,57 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+
+  }
+}
+
+apply plugin: 'groovy'
+
+jar {
+  baseName = 'functional-testing'
+  version =  '0.1.0'
+}
+
+repositories {
+  mavenCentral()
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+configurations {
+  cucumberRuntime {
+    extendsFrom testRuntime
+  }
+}
+
+task cucumber() {
+  dependsOn assemble
+  doLast {
+    javaexec {
+      main = "cucumber.api.cli.Main"
+      classpath = configurations.cucumberRuntime
+      args = ['--plugin', 'pretty', '--glue', 'src/test/groovy', 'src/test/resources']
+
+    }
+  }
+}
+
+//Ensure the cucumber tests are executed as part of the build. Makes for a very pretty output.
+build.dependsOn cucumber
+
+dependencies {
+  cucumberRuntime files("${jar.archivePath}")
+  compile 'org.codehaus.groovy:groovy-all:2.4.3'
+  testCompile("junit:junit")
+  testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:2.46.0'
+  testCompile 'org.seleniumhq.selenium:selenium-support:2.46.0'
+  testCompile 'info.cukes:cucumber-groovy:1.2.4'
+  testCompile 'info.cukes:cucumber-junit:1.2.4'
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.9'
+}
