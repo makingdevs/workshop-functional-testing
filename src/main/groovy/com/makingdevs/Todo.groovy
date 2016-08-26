@@ -3,7 +3,7 @@ package com.makingdevs
 class Todo {
 
   String description
-  Date dateCreated
+  Date dateCreated = new Date()
   Boolean completed
 
 }
