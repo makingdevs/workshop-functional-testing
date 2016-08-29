@@ -10,6 +10,10 @@ To start this workshop you should:
 - In your CLI type:
   - For _*nix_ `./gradlew build`
   - For _windows_ `gradlew.bat build`
+- Alternatively you can install the SDKMAN tool from http://sdkman.io/install.html
+- After that, please install Groovy: `sdk install groovy`
+- And Gradle(2.9): `sdk install gradle 2.9`
+- In the code you find some test with node, so if you wish, install it please
 
 And that's all, you now have all the dependencies for run this repo.
 
