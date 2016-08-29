@@ -15,11 +15,6 @@ Then(~/^the first heading has the value "(.*?)"$/) { String header ->
 }
 
 When(~/^I click the cross browser link$/) { ->
-  // Write code here that turns the phrase above into concrete actions
-  throw new PendingException()
-}
-
-Then(~/^the first heading has the value 'Cross Browser Automation'$/) { ->
-  // Write code here that turns the phrase above into concrete actions
-  throw new PendingException()
+  def link = $("ul.sidemenu > li > a", href: "crossbrowser")
+  link.click()
 }
