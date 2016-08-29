@@ -6,8 +6,8 @@ import cucumber.api.CucumberOptions
 import cucumber.api.junit.Cucumber
 
 @RunWith(Cucumber)
-@CucumberOptions(features = [ "classpath:features/todo_web.feature" ], strict = true, plugin = [ "html:build/test-report" ])
-class TodoFeature {
+@CucumberOptions(features = [ "classpath:cucumber/resources/features/todo_web.feature" ], strict = true, plugin = [ "html:build/test-report" ])
+class TodoWebFeature {
 
 }
 
