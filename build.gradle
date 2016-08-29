@@ -1,58 +1,67 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
   repositories {
     mavenCentral()
+    jcenter()
   }
   dependencies {
-
+    classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.9"
   }
+}
+
+ext {
+  groovyVersion = '2.4.5'
+  gebVersion = '0.13.1'
+  seleniumVersion = '2.51.0'
+  cucumberJvmVersion = '1.2.2'
+  chromeDriverVersion = '2.19'
+  phantomJsVersion = '1.9.8'
 }
 
 apply plugin: 'groovy'
-
-jar {
-  baseName = 'functional-testing'
-  version =  '0.1.0'
-}
+apply plugin: "com.github.samueltbrown.cucumber"
+apply from: "osSpecificDownloads.gradle"
 
 repositories {
   mavenCentral()
 }
 
+
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-configurations {
-  cucumberRuntime {
-    extendsFrom testRuntime
-  }
-}
-
-task cucumber() {
-  dependsOn assemble
-  doLast {
-    javaexec {
-      main = "cucumber.api.cli.Main"
-      classpath = configurations.cucumberRuntime
-      args = ['--plugin', 'pretty', '--glue', 'src/test/groovy', 'src/test/resources']
-
-    }
-  }
-}
-
-//Ensure the cucumber tests are executed as part of the build. Makes for a very pretty output.
-build.dependsOn cucumber
-
 dependencies {
-  cucumberRuntime files("${jar.archivePath}")
   compile 'org.codehaus.groovy:groovy-all:2.4.3'
-  testCompile("junit:junit")
-  compile "org.gebish:geb-core:0.13.1"
-  compile "org.seleniumhq.selenium:selenium-firefox-driver:2.52.0"
-  compile "org.seleniumhq.selenium:selenium-support:2.52.0"
-  testCompile 'info.cukes:cucumber-groovy:1.2.4'
-  testCompile 'info.cukes:cucumber-junit:1.2.4'
+  testCompile "info.cukes:cucumber-core:1.2.2"
+  testCompile "info.cukes:cucumber-groovy:1.2.2"
+  testCompile "info.cukes:cucumber-junit:1.2.2"
+  testCompile "org.gebish:geb-core:0.13.1"
+  testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.52.0"
+  testCompile "org.seleniumhq.selenium:selenium-support:2.52.0"
 }
 
 task wrapper(type: Wrapper) {
   gradleVersion = '2.9'
+}
+
+
+cucumber {
+  def tagsToRun = System.getProperty("cucumber.tags")
+  formats = ['pretty','json:build/cucumber.json','junit:build/cucumber.xml','html:build/reports/cucumber']
+  tags = tagsToRun ? [tagsToRun] : []
+}
+
+tasks.cucumber {
+  dependsOn unzipChromeDriver, unzipPhantomJs
+
+  def chromeDriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
+  def phantomJsFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "phantomjs.exe" : "bin/phantomjs"
+
+  jvmOptions.systemProperties([
+    "webdriver.chrome.driver": new File(unzipChromeDriver.outputs.files.singleFile, chromeDriverFilename).absolutePath,
+    "phantomjs.binary.path": new File(unzipPhantomJs.outputs.files.singleFile, phantomJsFilename).absolutePath,
+    //"geb.cucumber.step.packages": "pages",
+    "geb.env": System.getProperty("geb.env")
+  ])
 }
