@@ -1,4 +1,4 @@
-# Adapted to this demo from https://github.com/geb/geb-example-cucumber-jvm
+// Adapted to this demo from https://github.com/geb/geb-example-cucumber-jvm
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.apache.commons.io.FileUtils
