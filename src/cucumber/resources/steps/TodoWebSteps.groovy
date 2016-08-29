@@ -6,15 +6,27 @@ import static cucumber.api.groovy.EN.*
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
-When(~/^I go to the Geb home page$/) { ->
-  go "http://gebish.org"
+Given(~/^we open a browser and we navigate to "(.*?)"$/) { String arg1 ->
+  // Write code here that turns the phrase above into concrete actions
+  throw new PendingException()
 }
 
-Then(~/^the first heading has the value "(.*?)"$/) { String header ->
-  assert $("h1")*.text().contains(header)
+Then(~/^we see an input ready to enter a task$/) { ->
+  // Write code here that turns the phrase above into concrete actions
+  throw new PendingException()
 }
 
-When(~/^I click the cross browser link$/) { ->
-  def link = $("ul.sidemenu > li > a", href: "crossbrowser")
-  link.click()
+Then(~/^the main title "(.*?)"$/) { String arg1 ->
+  // Write code here that turns the phrase above into concrete actions
+  throw new PendingException()
+}
+
+When(~/^I press enter$/) { ->
+  // Write code here that turns the phrase above into concrete actions
+  throw new PendingException()
+}
+
+Then(~/^I should see a counter with (\d+) tasks$/) { int arg1 ->
+  // Write code here that turns the phrase above into concrete actions
+  throw new PendingException()
 }

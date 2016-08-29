@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber
   features = [ "classpath:cucumber/resources/features/simple_web.feature" ],
   strict = true,
   plugin = [ "html:build/test-report" ])
-class SimpleWebFeature {
+class SimpleNavigationFeature {
 
 }
 
