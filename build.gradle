@@ -37,8 +37,14 @@ dependencies {
   testCompile "info.cukes:cucumber-groovy:1.2.2"
   testCompile "info.cukes:cucumber-junit:1.2.2"
   testCompile "org.gebish:geb-core:0.13.1"
+  testCompile "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
   testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.52.0"
+  testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.52.0"
   testCompile "org.seleniumhq.selenium:selenium-support:2.52.0"
+  testCompile("com.codeborne:phantomjsdriver:1.2.1") {
+    // phantomjs driver pulls in a different selenium version
+    transitive = false
+  }
 }
 
 task wrapper(type: Wrapper) {
@@ -58,10 +64,15 @@ tasks.cucumber {
   def chromeDriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
   def phantomJsFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "phantomjs.exe" : "bin/phantomjs"
 
-  jvmOptions.systemProperties([
+  def properties = [
     "webdriver.chrome.driver": new File(unzipChromeDriver.outputs.files.singleFile, chromeDriverFilename).absolutePath,
     "phantomjs.binary.path": new File(unzipPhantomJs.outputs.files.singleFile, phantomJsFilename).absolutePath,
     //"geb.cucumber.step.packages": "pages",
     "geb.env": System.getProperty("geb.env")
-  ])
+  ]
+
+  if(System.getProperty("geb.saucelabs.file"))
+    properties."geb.saucelabs.browser" = new File(System.getProperty("geb.saucelabs.file"))?.text
+
+  jvmOptions.systemProperties(properties)
 }
