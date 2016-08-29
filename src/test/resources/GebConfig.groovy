@@ -50,6 +50,6 @@ environments {
 
 }
 
-baseUrl = "http://gebish.org"
+baseUrl = "http://todomvc.com/"
 
 baseNavigatorWaiting = true

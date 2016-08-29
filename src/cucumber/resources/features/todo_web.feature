@@ -1,8 +1,19 @@
-Feature: Geb web site navigation with prebuilt steps
+Feature: Create a list of ToDo's
+  As a complex user
+  I want create tasks
+  so that I can have a list of ToDo's
 
-  @web
-  Scenario: Find what I'm looking for with prebuilt steps
-    When I go to the Geb home page
-    Then the first heading has the value "What is it?"
-    When I click the cross browser link
-    Then the first heading has the value "Cross Browser Automation"
+  @todos
+  Scenario: Welcome to my list
+    Given we open a browser and we navigate to "examples/backbone"
+    Then we see an input ready to enter a task
+    And the main title "todos"
+
+  @todos
+  Scenario: Adding a task
+    Given we open a browser and we navigate to "examples/backbone"
+    When we see an input ready to enter a task
+    And I've entered a task called "Prepare myself for the workshop"
+    And I press enter
+    Then I should see a counter with 1 tasks
+
