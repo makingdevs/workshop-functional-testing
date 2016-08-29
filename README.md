@@ -8,8 +8,8 @@ To start this workshop you should:
 - Download and unzip this repo
 - Go to the directory in your command line
 - In your CLI type:
-  - For _*nix_ `./gradlew build`
-  - For _windows_ `gradlew.bat build`
+  - For _*nix_ `./gradlew cucumber`
+  - For _windows_ `gradlew.bat cucumber`
 - Alternatively you can install the SDKMAN tool from http://sdkman.io/install.html
 - After that, please install Groovy: `sdk install groovy`
 - And Gradle(2.9): `sdk install gradle 2.9`
