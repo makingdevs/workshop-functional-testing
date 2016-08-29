@@ -10,9 +10,8 @@ When(~/^I go to the Geb home page$/) { ->
   go "http://gebish.org"
 }
 
-Then(~/^the first heading has the value 'What is it\?'$/) { ->
-  // Write code here that turns the phrase above into concrete actions
-  throw new PendingException()
+Then(~/^the first heading has the value "(.*?)"$/) { String header ->
+  assert $("h1")*.text().contains(header)
 }
 
 When(~/^I click the cross browser link$/) { ->
