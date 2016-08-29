@@ -19,22 +19,22 @@ Then(~/^we see an input ready to enter a task$/) { ->
 Then(~/^the main title "(.*?)"$/) { String title ->
   header = $("h1").first()
   assert title == header.text()
-  Thread.sleep 3000
+  Thread.sleep 1000
 }
 
 When(~/^I write a task called "(.*?)"$/) { String description ->
   taskInput << description
-  Thread.sleep 3000
+  Thread.sleep 1000
 }
 
 When(~/^I press enter$/) { ->
   taskInput << Keys.chord(Keys.ENTER)
-  Thread.sleep 3000
+  Thread.sleep 1000
 }
 
 Then(~/^I should see a counter with (\d+) tasks$/) { int counter ->
   assert $("span.todo-count > strong").text() == "$counter"
   assert $("ul.todo-list li").size() == counter
-  Thread.sleep 3000
+  Thread.sleep 1000
 }
 
