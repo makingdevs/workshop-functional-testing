@@ -11,12 +11,12 @@ buildscript {
 }
 
 ext {
-  groovyVersion = '2.4.5'
-  gebVersion = '0.13.1'
+  groovyVersion = '2.4.14'
+  gebVersion = '2.1'
   seleniumVersion = '2.52.0'
-  cucumberJvmVersion = '1.2.2'
-  chromeDriverVersion = '2.19'
-  phantomJsVersion = '1.9.8'
+  cucumberJvmVersion = '1.2.5'
+  chromeDriverVersion = '2.37'
+  phantomJsVersion = '2.1.1'
 }
 
 apply plugin: 'groovy'
@@ -25,8 +25,8 @@ apply from: "osSpecificDownloads.gradle"
 
 repositories {
   mavenCentral()
+  jcenter()
 }
-
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
