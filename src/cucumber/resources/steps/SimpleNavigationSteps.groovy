@@ -15,6 +15,8 @@ Then(~/^the first heading has the value "(.*?)"$/) { String header ->
 }
 
 When(~/^I click the cross browser link$/) { ->
-  def link = $("ul.sidemenu > li > a", href: "crossbrowser")
+  def link = $(".menu a.manuals")
   link.click()
+  def link2 = $("#manuals-menu a.item", href:"manual/current/")
+  link2.click()
 }
