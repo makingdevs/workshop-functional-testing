@@ -17,6 +17,16 @@ ext {
 
 // apply from: "osSpecificDownloads.gradle"
 
+addCucumberSuite 'cucumberTest'
+
+cucumber {
+  maxParallelForks = 3
+}
+
+cucumberTest {
+  stepDefinitionRoots = ['cucumber.steps', 'cucumber.hooks'] // default
+}
+
 repositories {
   mavenCentral()
   jcenter()
@@ -28,7 +38,7 @@ targetCompatibility = 11
 dependencies {
   compile "org.codehaus.groovy:groovy-all:$groovyVersion"
   testCompile "io.cucumber:cucumber-core:$cucumberJvmVersion"
-  testCompile "io.cucumber:cucumber-groovy:$cucumberJvmVersion"
+  testCompile "io.cucumber:cucumber-java:$cucumberJvmVersion"
   testCompile "io.cucumber:cucumber-junit:$cucumberJvmVersion"
   testCompile "org.gebish:geb-core:$gebVersion"
   testCompile "org.seleniumhq.selenium:selenium-htmlunit-driver:$htmlUnitVersion"
