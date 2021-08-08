@@ -1,10 +1,9 @@
 package com.makingdevs
 
-import cucumber.api.*
-import static cucumber.api.groovy.EN.*
+import io.cucumber.*
 
-this.metaClass.mixin(cucumber.api.groovy.Hooks)
-this.metaClass.mixin(cucumber.api.groovy.EN)
+this.metaClass.mixin(io.cucumber.groovy.Hooks)
+this.metaClass.mixin(io.cucumber.groovy.EN)
 
 When(~/^I go to the Geb home page$/) { ->
   go "http://gebish.org"

@@ -23,7 +23,7 @@ Feature: Create a list of ToDo's
 
     Examples:
       | task_description            | task_counter  |
-      | "Check the doc of Cucumber" | 2             |
+      | "Check the doc of Cucumber" | 5             |
       | "Read about BDD"            | 3             |
       | "Mention Fitnesse"          | 4             |
 
