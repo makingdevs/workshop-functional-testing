@@ -1,29 +1,21 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
-buildscript {
-  repositories {
-    mavenCentral()
-    jcenter()
-  }
-  dependencies {
-    classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.9"
-  }
+plugins {
+  id "groovy"
+  id 'com.patdouble.cucumber-jvm' version '0.19'
 }
 
 ext {
-  groovyVersion = '2.4.14'
-  gebVersion = '2.1'
+  groovyVersion = '3.0.8'
+  gebVersion = '4.1'
   htmlUnitVersion = '2.52.0'
-  seleniumVersion = '3.11.0'
-  cucumberJvmVersion = '1.2.5'
+  seleniumVersion = '3.141.59'
+  cucumberJvmVersion = '6.11.0'
   chromeDriverVersion = '2.37'
-  phantomJsVersion = '2.1.1'
   firefoxDriverVersion = '0.20.0'
 }
 
-apply plugin: 'groovy'
-apply plugin: "com.github.samueltbrown.cucumber"
-apply from: "osSpecificDownloads.gradle"
+// apply from: "osSpecificDownloads.gradle"
 
 repositories {
   mavenCentral()
@@ -35,24 +27,15 @@ targetCompatibility = 11
 
 dependencies {
   compile "org.codehaus.groovy:groovy-all:$groovyVersion"
-  testCompile "info.cukes:cucumber-core:$cucumberJvmVersion"
-  testCompile "info.cukes:cucumber-groovy:$cucumberJvmVersion"
-  testCompile "info.cukes:cucumber-junit:$cucumberJvmVersion"
+  testCompile "io.cucumber:cucumber-core:$cucumberJvmVersion"
+  testCompile "io.cucumber:cucumber-groovy:$cucumberJvmVersion"
+  testCompile "io.cucumber:cucumber-junit:$cucumberJvmVersion"
   testCompile "org.gebish:geb-core:$gebVersion"
   testCompile "org.seleniumhq.selenium:selenium-htmlunit-driver:$htmlUnitVersion"
   testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
   testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
   testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
-  testCompile("com.codeborne:phantomjsdriver:1.4.4") {
-    // phantomjs driver pulls in a different selenium version
-    transitive = false
-  }
 }
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '2.9'
-}
-
 
 cucumber {
   def tagsToRun = System.getProperty("cucumber.tags")
