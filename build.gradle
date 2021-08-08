@@ -40,16 +40,25 @@ targetCompatibility = 11
 
 dependencies {
   implementation "org.codehaus.groovy:groovy-all:$groovyVersion"
+
+  implementation platform('org.jetbrains.kotlin:kotlin-bom')
+  implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+
   testImplementation "io.cucumber:cucumber-core:$cucumberJvmVersion"
-  testImplementation "io.cucumber:cucumber-jvm-groovy:$cucumberJvmVersion"
+  testImplementation "io.cucumber:cucumber-groovy:$cucumberJvmVersion"
   testImplementation "io.cucumber:cucumber-junit:$cucumberJvmVersion"
   testImplementation "org.gebish:geb-core:$gebVersion"
   testImplementation "org.seleniumhq.selenium:selenium-htmlunit-driver:$htmlUnitVersion"
   testImplementation "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
   testImplementation "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
   testImplementation "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+  testImplementation 'org.jetbrains.kotlin:kotlin-test'
+  testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
 
-  cucumberTestImplementation "io.cucumber:cucumber-java:$cucumberJvmVersion"
-  cucumberTestImplementation "junit:junit:4.12"
+  testImplementation 'io.kotest:kotest-runner-junit5-jvm:4.6.1'
+
+  cucumberTestImplementation "io.cucumber:cucumber-core:$cucumberJvmVersion"
+  cucumberTestImplementation "io.cucumber:cucumber-groovy:$cucumberJvmVersion"
+  cucumberTestImplementation "io.cucumber:cucumber-junit:$cucumberJvmVersion"
 }
 
