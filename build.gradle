@@ -37,29 +37,3 @@ dependencies {
   testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
 }
 
-cucumber {
-  def tagsToRun = System.getProperty("cucumber.tags")
-  formats = ['pretty','json:build/cucumber.json','junit:build/cucumber.xml','html:build/reports/cucumber']
-  tags = tagsToRun ? [tagsToRun] : []
-}
-
-tasks.cucumber {
-  dependsOn unzipChromeDriver, unzipPhantomJs
-
-  def chromeDriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
-  def phantomJsFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "phantomjs.exe" : "bin/phantomjs"
-  def firefoxFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "geckodriver.exe" : "geckodriver"
-
-  def properties = [
-    "webdriver.chrome.driver": new File(unzipChromeDriver.outputs.files.singleFile, chromeDriverFilename).absolutePath,
-    "phantomjs.binary.path": new File(unzipPhantomJs.outputs.files.singleFile, phantomJsFilename).absolutePath,
-    "webdriver.gecko.driver": new File(unzipFirefox.outputs.files.singleFile, firefoxFilename).absolutePath,
-    //"geb.cucumber.step.packages": "pages",
-    "geb.env": System.getProperty("geb.env")
-  ]
-
-  if(System.getProperty("geb.saucelabs.file"))
-    properties."geb.saucelabs.browser" = new File(System.getProperty("geb.saucelabs.file"))?.text
-
-  jvmOptions.systemProperties(properties)
-}
