@@ -24,7 +24,7 @@ repositories {
 }
 
 cucumber {
-  plugin = ['pretty']
+  plugin = ['pretty', 'html:./build/report.html']
   glue = 'classpath:com.makingdevs'
   main = 'io.cucumber.core.cli.Main'
 }
