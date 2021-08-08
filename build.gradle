@@ -10,7 +10,7 @@ ext {
   gebVersion = '4.1'
   htmlUnitVersion = '2.52.0'
   seleniumVersion = '3.141.59'
-  cucumberJvmVersion = '6.11.0'
+  cucumberJvmVersion = '6.10.4'
   chromeDriverVersion = '2.37'
   firefoxDriverVersion = '0.20.0'
 }
@@ -25,6 +25,7 @@ cucumber {
 
 cucumberTest {
   stepDefinitionRoots = ['cucumber.steps', 'cucumber.hooks'] // default
+  junitReport = true
 }
 
 repositories {
@@ -38,12 +39,15 @@ targetCompatibility = 11
 dependencies {
   compile "org.codehaus.groovy:groovy-all:$groovyVersion"
   testCompile "io.cucumber:cucumber-core:$cucumberJvmVersion"
-  testCompile "io.cucumber:cucumber-java:$cucumberJvmVersion"
+  testCompile "io.cucumber:cucumber-jvm-groovy:$cucumberJvmVersion"
   testCompile "io.cucumber:cucumber-junit:$cucumberJvmVersion"
   testCompile "org.gebish:geb-core:$gebVersion"
   testCompile "org.seleniumhq.selenium:selenium-htmlunit-driver:$htmlUnitVersion"
   testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
   testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
   testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+
+  cucumberTestImplementation "io.cucumber:cucumber-java:$cucumberJvmVersion"
+  cucumberTestImplementation "junit:junit:4.12"
 }
 
