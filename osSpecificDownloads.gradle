@@ -74,3 +74,34 @@ task unzipPhantomJs(type: Copy) {
     fcp.relativePath = new RelativePath(!fcp.directory, *fcp.relativePath.segments[1..-1])
   }
 }
+
+task downloadFirefox {
+  def osFilenamePart
+  if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+    osFilenamePart = "win32.zip"
+  } else if (Os.isFamily(Os.FAMILY_MAC)) {
+    osFilenamePart = "macos.tar.gz"
+  } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+    osFilenamePart = Os.isArch("amd64") ? "-linux32.tar.gz" : "-linux64.tar.gz"
+  }
+
+  def filename = "geckodriver-v$firefoxDriverVersion-$osFilenamePart"
+  def outputFile = file("$buildDir/webdriver/$filename")
+  inputs.property("firefoxDriverVersion", firefoxDriverVersion)
+  outputs.file(outputFile)
+
+  doLast {
+    FileUtils.copyURLToFile(new URL("https://github.com/mozilla/geckodriver/releases/download/v$firefoxDriverVersion/$filename"), outputFile)
+  }
+}
+
+task unzipFirefox(type: Copy) {
+  def outputDir = file("$buildDir/webdriver/geckodriver")
+  dependsOn downloadFirefox
+  outputs.dir(outputDir)
+
+  def archive = downloadFirefox.outputs.files.singleFile
+
+  from(Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_WINDOWS) ? tarTree(resources.gzip(archive)) : zipTree(archive))
+  into(outputDir)
+}
