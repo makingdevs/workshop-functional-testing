@@ -7,9 +7,10 @@ class FizzBuzz {
   }
 
   String play(Integer n) {
-    if(n % (3*5)) return "FizzBuzz"
-    if(n % 5) return "Buzz"
-    if(n % 3) return "Fizz"
+    if(!n) return "0"
+    if(n % (3*5) == 0) return "FizzBuzz"
+    if(n % 5 == 0) return "Buzz"
+    if(n % 3 == 0) return "Fizz"
     n.toString()
   }
 }
