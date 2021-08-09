@@ -8,6 +8,7 @@ plugins {
 
 ext {
   groovyVersion = '3.0.8'
+  kotestVersion = '4.6.1'
   gebVersion = '4.1'
   htmlUnitVersion = '2.52.0'
   seleniumVersion = '3.141.59'
@@ -32,6 +33,10 @@ cucumber {
 sourceCompatibility = 11
 targetCompatibility = 11
 
+test {
+  useJUnitPlatform()
+}
+
 dependencies {
   implementation "org.codehaus.groovy:groovy-all:$groovyVersion"
 
@@ -46,10 +51,7 @@ dependencies {
   testImplementation "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
   testImplementation "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
   testImplementation "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
-  testImplementation 'org.jetbrains.kotlin:kotlin-test'
-  testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
 
-  testImplementation 'io.kotest:kotest-runner-junit5-jvm:4.6.1'
-
+  testImplementation "io.kotest:kotest-runner-junit5:$kotestVersion"
+  testImplementation "io.kotest:kotest-assertions-core:$kotestVersion"
 }
-
