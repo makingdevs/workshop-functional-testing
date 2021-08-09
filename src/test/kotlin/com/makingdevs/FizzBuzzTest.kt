@@ -6,8 +6,17 @@ import io.kotest.matchers.shouldBe
 class FizzBuzzTest : FunSpec() {
 
   init {
-    test("my first test") {
-      6 + 2 shouldBe 4
+
+    beforeEach {
+      println("Hello from $it")
+    }
+
+    test("Plays FizzBuzz for Zero") {
+      FizzBuzz().play(0) shouldBe "0"
+    }
+
+    afterEach {
+      println("Bye $it")
     }
   }
 
